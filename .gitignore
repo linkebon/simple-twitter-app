@@ -1,0 +1,14 @@
+logs
+target
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID
+.idea
+*.iml
+dist
+node_modules
+target
+npm-debug.log

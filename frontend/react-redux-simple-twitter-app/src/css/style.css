@@ -1,0 +1,15 @@
+.infoContainer {
+    border: 1px solid black;
+    white-space: pre-line;
+    margin-top: 1%;
+    padding: 1% 1% 1% 1%;
+}
+
+input {
+    max-width: 30%;
+}
+
+.small {
+    max-width: 5% !important;
+    margin-left: 2px;
+}

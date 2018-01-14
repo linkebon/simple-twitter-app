@@ -1,0 +1,8 @@
+npm tasks
+"dev": "webpack-dev-server --content-base build"
+"generateFrontend": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js -p"
+"devPlayServer": "NODE_ENV=dev_play ./node_modules/.bin/webpack -d --watch"
+
+dev requires an index.html to be placed under ./build
+devPlayServer requires that there is a play server running the app. js files as bundeled and placed under ../../public/js/bundle_simpletwitterapp.js
+
