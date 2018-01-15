@@ -15,6 +15,7 @@ export const loadState = () => {
 export const saveState = (state) => {
   try  {
       const stateAsString = JSON.stringify(state);
+      console.log(state);
       localStorage.setItem("appState", stateAsString)
   }catch(err) {
       console.log("Error saving state..");
