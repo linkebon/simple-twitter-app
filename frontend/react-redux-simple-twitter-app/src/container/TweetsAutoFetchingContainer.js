@@ -16,7 +16,7 @@ class TweetsAutoFetchingContainer extends Component {
         let actions = bindActionCreators(TweetActions, dispatch);
         return (
             <div>
-                <SearchTweetInput getTweetsAutoUpdating={actions.getTweetsAutoUpdating}/>
+                <SearchTweetInput getTweets={actions.getTweetsAutoUpdating} autoUpdate={true}/>
                 <br/>
                 {this.props.tweets.tweetsAutoUpdating.map((tweet) => {
                     let id = uniqueId();

@@ -1,8 +1,8 @@
 .infoContainer {
-    border: 1px solid black;
+   background: aliceblue;
     white-space: pre-line;
     padding: 1% 1% 1% 1%;
-    margin-top: 2%;
+    margin-bottom: 5px;
 }
 
 input {
@@ -10,6 +10,6 @@ input {
 }
 
 .small {
-    max-width: 5% !important;
+    max-width: 50px !important;
     margin-left: 2px;
 }

@@ -6,23 +6,25 @@ class SearchTweetInput extends Component {
     }
 
     render() {
-        let {getTweetsAutoUpdating} = this.props;
+        let {getTweets, autoUpdate} = this.props;
+        let count = '5';
+        let filter = '';
         return (
             <form className="form-inline">
                 <input id="autoUpdatingFilterId" placeholder={"Search tweets"} className="form-control" type="text"
                        onChange={(e) => {
                            e.preventDefault();
-                           let searchValue = e.target.value;
-                           if (searchValue.length > 3) {
-                               let tempCount = $("#tweetCount").val();
-                               let count = tempCount ? tempCount : '5';
-                               getTweetsAutoUpdating(e.target.value, count);
+                           filter = e.target.value;
+                           if (filter.length > 3) {
+                               getTweets(filter, count);
                            }
                        }}/>
-                <input id="tweetCount" defaultValue={5} className="form-control small" onChange={(e) => {
+                <input id="tweetCount" defaultValue={count} className="form-control small" onChange={(e) => {
                     e.preventDefault();
                     if (!/^\d+$/.test(e.target.value)) {
                         e.target.value = '';
+                    } else {
+                        count = e.target.value;
                     }
                 }}/>
             </form>

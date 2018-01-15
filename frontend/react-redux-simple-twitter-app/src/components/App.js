@@ -4,7 +4,7 @@ import TweetAutoFetchingContainer from '../container/TweetsAutoFetchingContainer
 
 const App = () => {
     return (
-        <div className="container-fluid" style={{marginTop: '1%'}}>
+        <div className="container" style={{marginTop: '1%'}}>
             <div className="row">
                 <div className="col-8">
                     <TweetContainer/>
