@@ -13,3 +13,13 @@ input {
     max-width: 50px !important;
     margin-left: 2px;
 }
+
+.fade-enter {
+    right: 100px;
+}
+
+/* End State of Animation */
+.fade-enter-active {
+    right: 0px;
+    transition: .5s ease-in all;
+}

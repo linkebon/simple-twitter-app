@@ -16,7 +16,7 @@ class TweetsContainer extends Component {
         let actions = bindActionCreators(tweetActions, dispatch);
         return (
             <div>
-                <SearchTweetInput getTweets={actions.getTweets} renderCountInput={true}/>
+                <SearchTweetInput getTweets={actions.getTweets} renderCountInput={true} autoUpdate={false} initialText={'Search tweets..'}/>
                 <br/>
                 {this.props.tweets.tweets.map((tweet, index) => {
                     let id = uniqueId();

@@ -4,35 +4,48 @@ class SearchTweetInput extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            count: 5
+        this.count = 5;
+        this.filter = '';
+    }
+
+    componentDidMount() {
+        let {getTweets, autoUpdate} = this.props;
+        if (autoUpdate) {
+            this.updateTweetInterval = setInterval(() => {
+                getTweets(this.filter, this.count)
+            }, 10000)
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.props.autoUpdate) {
+            clearInterval(this.updateTweetInterval);
         }
     }
 
     renderCount(render) {
         if (render) {
             return (
-                <input id="tweetCount" defaultValue={this.state.count} className="form-control small" onChange={(e) => {
+                <input id="tweetCount" defaultValue={this.count} className="form-control small" onChange={(e) => {
                     e.preventDefault();
                     if (/^\d+$/.test(e.target.value)) {
-                        this.setState({count: e.target.value});
+                        this.count = e.target.value;
                     }
                 }}/>
             )
         }
-    }
+    };
 
     render() {
-        let {getTweets, renderCountInput} = this.props;
-        let filter = '';
+        let {renderCountInput, getTweets, initialText} = this.props;
         return (
             <form className="form-inline">
-                <input id="autoUpdatingFilterId" placeholder={"Search tweets"} className="form-control" type="text"
+                <input id="autoUpdatingFilterId" placeholder={initialText} className="form-control" type="text"
                        onChange={(e) => {
                            e.preventDefault();
-                           filter = e.target.value;
-                           if (filter.length > 3) {
-                               getTweets(filter, this.state.count);
+                           if (e.target.value.length > 3) {
+                               this.filter = e.target.value;
+                               getTweets(this.filter, this.count);
                            }
                        }}/>
                 {this.renderCount(renderCountInput)}
@@ -40,4 +53,5 @@ class SearchTweetInput extends Component {
         )
     }
 }
+
 export default SearchTweetInput;
