@@ -14,12 +14,20 @@ input {
     margin-left: 2px;
 }
 
-.fade-enter {
-    right: 100px;
+.twitter-enter {
+    opacity: 0.01;
 }
 
-/* End State of Animation */
-.fade-enter-active {
-    right: 0px;
-    transition: .5s ease-in all;
+.twitter-enter.twitter-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.twitter-leave {
+    opacity: 1;
+}
+
+.twitter-leave.twitter-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
 }

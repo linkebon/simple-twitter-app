@@ -12,20 +12,22 @@ class TweetsContainer extends Component {
     }
 
     render() {
-        let {dispatch} = this.props;
+        let {dispatch, tweets} = this.props;
         let actions = bindActionCreators(tweetActions, dispatch);
+        const tweetsToRender = tweets.tweets.map((tweet, index) => {
+            let id = uniqueId();
+            return (
+                <div key={id}>
+                    <Tweet tweet={tweet} id={id}/>
+                </div>
+            )
+        });
         return (
             <div>
-                <SearchTweetInput getTweets={actions.getTweets} renderCountInput={true} autoUpdate={false} initialText={'Search tweets..'}/>
+                <SearchTweetInput getTweets={actions.getTweets} renderCountInput={true} autoUpdate={false}
+                                  initialText={'Search tweets..'}/>
                 <br/>
-                {this.props.tweets.tweets.map((tweet, index) => {
-                    let id = uniqueId();
-                    return (
-                        <div key={id}>
-                            <Tweet tweet={tweet} id={id}/>
-                        </div>
-                    )
-                })}
+                {tweetsToRender}
             </div>
         )
     }

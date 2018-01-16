@@ -13,27 +13,27 @@ class TweetsAutoFetchingContainer extends Component {
     }
 
     render() {
-        let {dispatch} = this.props;
+        let {dispatch, tweets} = this.props;
         let actions = bindActionCreators(TweetActions, dispatch);
-        const transitionOptions = {
-            transitionName: 'fade',
-            transitionEnterTimeout: 500,
-            transitionLeaveTimeout: 500
-        };
+        const tweetsToRender = tweets.tweetsAutoUpdating.map((tweet) => {
+            let id = uniqueId();
+            return (
+                <div key={id}>
+                    <Tweet tweet={tweet} id={id}/>
+                </div>
+            )
+        });
         return (
             <div>
-                <SearchTweetInput getTweets={actions.getTweetsAutoUpdating} renderCountInput={false} autoUpdate={true} initialText={'Autoupdating..'}/>
+                <SearchTweetInput getTweets={actions.getTweetsAutoUpdating} renderCountInput={false} autoUpdate={true}
+                                  initialText={'Autoupdating..'}/>
                 <br/>
-                {this.props.tweets.tweetsAutoUpdating.map((tweet) => {
-                    let id = uniqueId();
-                    return (
-                        <div key={id}>
-                            <ReactCSSTransitionGroup {...transitionOptions}>
-                                <Tweet tweet={tweet} id={id}/>
-                            </ReactCSSTransitionGroup>
-                        </div>
-                    )
-                })}
+                <ReactCSSTransitionGroup
+                    transitionName="twitter"
+                    transitionEnterTimeout={1500}
+                    transitionLeaveTimeout={300}>
+                    {tweetsToRender}
+                </ReactCSSTransitionGroup>
             </div>
         )
     }
