@@ -1,13 +1,29 @@
 import React, {Component} from 'react';
 
 class SearchTweetInput extends Component {
+
     constructor(props) {
         super(props);
+        this.state = {
+            count: 5
+        }
+    }
+
+    renderCount(render) {
+        if (render) {
+            return (
+                <input id="tweetCount" defaultValue={this.state.count} className="form-control small" onChange={(e) => {
+                    e.preventDefault();
+                    if (/^\d+$/.test(e.target.value)) {
+                        this.setState({count: e.target.value});
+                    }
+                }}/>
+            )
+        }
     }
 
     render() {
-        let {getTweets, autoUpdate} = this.props;
-        let count = '5';
+        let {getTweets, renderCountInput} = this.props;
         let filter = '';
         return (
             <form className="form-inline">
@@ -16,20 +32,12 @@ class SearchTweetInput extends Component {
                            e.preventDefault();
                            filter = e.target.value;
                            if (filter.length > 3) {
-                               getTweets(filter, count);
+                               getTweets(filter, this.state.count);
                            }
                        }}/>
-                <input id="tweetCount" defaultValue={count} className="form-control small" onChange={(e) => {
-                    e.preventDefault();
-                    if (!/^\d+$/.test(e.target.value)) {
-                        e.target.value = '';
-                    } else {
-                        count = e.target.value;
-                    }
-                }}/>
+                {this.renderCount(renderCountInput)}
             </form>
         )
     }
 }
-
 export default SearchTweetInput;
