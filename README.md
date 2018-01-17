@@ -2,6 +2,8 @@ Simple twitter app with scala 2.12.4, playframework 2.6.10, react 16.2.0 and red
 =
 Example app how to use play framework, react and redux to fetch and display tweets.
 
+Bootstrap 4 beta 3 doesn't support less so the css code is compiled an put inline instead of external css files.
+
 This project have playframework as a backend and uses react and redux for frontend.
 All js frontend code when bundeled is placed under ./public/js
 
