@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as tweetActions from "../actions/TweetActions";
 import Tweet from "../components/Tweet";
-import {uniqueId} from "../util/UuidUtil";
 import SearchTweetInput from '../components/SearchTweetInput';
 
 class TweetsContainer extends Component {
@@ -15,7 +14,7 @@ class TweetsContainer extends Component {
         let {dispatch, tweets} = this.props;
         let actions = bindActionCreators(tweetActions, dispatch);
         const tweetsToRender = tweets.tweets.map((tweet, index) => {
-            let id = uniqueId();
+            const id = tweet.id;
             return (
                 <div key={id}>
                     <Tweet tweet={tweet} id={id}/>
@@ -24,7 +23,7 @@ class TweetsContainer extends Component {
         });
         return (
             <div>
-                <SearchTweetInput getTweets={actions.getTweets} renderCountInput={true} autoUpdate={false}
+                <SearchTweetInput getTweets={actions.getTweets} renderCountInput={true} autoUpdate={{auto: false, interval: 20000}}
                                   initialText={'Search tweets..'}/>
                 <br/>
                 {tweetsToRender}

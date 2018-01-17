@@ -5,7 +5,7 @@ import play.api.libs.json._
 
 case class TweetsApi(statuses: List[TweetApi])
 
-case class TweetApi(text: String, created_at: DateTime)
+case class TweetApi(id: String, text: String, created_at: DateTime)
 
 object TweetsApi {
   implicit val writes: OWrites[TweetsApi] = Json.writes[TweetsApi]

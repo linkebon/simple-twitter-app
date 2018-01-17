@@ -10,15 +10,15 @@ class SearchTweetInput extends Component {
 
     componentDidMount() {
         let {getTweets, autoUpdate} = this.props;
-        if (autoUpdate) {
+        if (autoUpdate.auto) {
             this.updateTweetInterval = setInterval(() => {
                 getTweets(this.filter, this.count)
-            }, 10000)
+            }, autoUpdate.interval)
         }
     }
 
     componentWillUnmount() {
-        if (this.props.autoUpdate) {
+        if (this.props.autoUpdate.auto) {
             clearInterval(this.updateTweetInterval);
         }
     }

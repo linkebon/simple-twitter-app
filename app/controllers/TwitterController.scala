@@ -1,6 +1,7 @@
 package controllers
 
 import java.util.Locale
+import java.util.UUID.randomUUID
 
 import beans.api.{TweetApi, TweetsApi}
 import com.google.inject.{Inject, Singleton}
@@ -25,17 +26,17 @@ class TwitterController @Inject()(twitterService: TwitterService, cc: Controller
   }
 
   def getTweets(keyword: String): Action[AnyContent] = Action.async { implicit request =>
-    logger.debug("fetching tweets...")
     val count = request.getQueryString("count").getOrElse("10")
     twitterService
       .getTweetsByKey(keyword, count)
       .map { tweets =>
-        val tweetsApi = TweetsApi(tweets.statuses.map(t => TweetApi(t.text, t.created_at.asDateTime)))
-        logger.debug(s"response: ${tweetsApi.statuses.mkString(",")}")
+        val tweetsApi = TweetsApi(tweets.statuses.map(t => TweetApi(randomUUID().toString, t.text, t.created_at.asDateTime)))
         Ok(toJson(tweetsApi))
       }
       .recover {
-        case NonFatal(e) => InternalServerError
+        case NonFatal(e) =>
+          logger.error("Something went wrong while fetching tweets!", e)
+          InternalServerError
       }
   }
 }

@@ -4,7 +4,6 @@ import {bindActionCreators} from 'redux';
 import Tweet from '../components/Tweet';
 import * as TweetActions from '../actions/TweetActions';
 import SearchTweetInput from "../components/SearchTweetInput";
-import {uniqueId} from '../util/UuidUtil';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class TweetsAutoFetchingContainer extends Component {
@@ -16,7 +15,7 @@ class TweetsAutoFetchingContainer extends Component {
         let {dispatch, tweets} = this.props;
         let actions = bindActionCreators(TweetActions, dispatch);
         const tweetsToRender = tweets.tweetsAutoUpdating.map((tweet) => {
-            let id = uniqueId();
+            const id = tweet.id;
             return (
                 <div key={id}>
                     <Tweet tweet={tweet} id={id}/>
@@ -25,12 +24,12 @@ class TweetsAutoFetchingContainer extends Component {
         });
         return (
             <div>
-                <SearchTweetInput getTweets={actions.getTweetsAutoUpdating} renderCountInput={false} autoUpdate={true}
+                <SearchTweetInput getTweets={actions.getTweetsAutoUpdating} renderCountInput={false} autoUpdate={{auto: true, interval: 20000}}
                                   initialText={'Autoupdating..'}/>
                 <br/>
                 <ReactCSSTransitionGroup
                     transitionName="twitter"
-                    transitionEnterTimeout={1500}
+                    transitionEnterTimeout={2000}
                     transitionLeaveTimeout={300}>
                     {tweetsToRender}
                 </ReactCSSTransitionGroup>
